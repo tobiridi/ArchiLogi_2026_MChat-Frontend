@@ -1,14 +1,14 @@
 ﻿@inherits LayoutComponentBase
+
 <div class="page">
-    @* <div class="sidebar">
-        <NavMenu />
-    </div> *@
+    @* TODO: display navMenu when the user is authenticate *@
+    @* <NavMenu /> *@
 
     <main>
-        <h1>This is my title</h1>
-
-        <article>
-            @Body
-        </article>
+        @Body
     </main>
+
+    <footer class="mt-auto">
+        <p class="text-center fw-bold">&copy; 2026 - @DateTime.UtcNow.ToString("yyyy") MChat. Tous droits réservés.</p>
+    </footer>
 </div>

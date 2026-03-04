@@ -1,17 +1,70 @@
-/* Reset CSS */
 :root {
     color-scheme: light dark;
+    --primary: #F1C400;
+    --primary-hover: #F5D856;
+    --secondary: #00A5F1;
+    --secondary-hover: #56C3F5;
+    --tertiary: #4C00F1;
+    --bg-light: #F8F7F2;
+    --bg-dark: #101820;
 }
 
-html, body {
+/* Reset CSS */
+html, body, .page {
     font-family: "Nunito Sans", sans-serif;
+    box-sizing: border-box;
+    background-color: var(--bg-light);
+    color: var(--bs-gray-800);
+    height: 100dvh;
+    transition: background-color ease-out 200ms;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Inter", sans-serif;
+    color: var(--bs-gray-800);
 }
 
+h1 {
+    font-weight: 700;
+}
 
+h2 {
+    font-weight: 600;
+}
+
+h3 {
+    font-weight: 500;
+}
+
+a, a:visited {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+input, select, textarea {
+    outline: transparent;
+}
+
+/* dark theme */
+@media (prefers-color-scheme: dark) {
+    html, body, .page {
+        background-color: var(--bg-dark);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--bs-gray-400);
+    }
+
+    a, p {
+        color: var(--bs-gray-300);
+    }
+
+}
+
+/* CSS global rules */
+
+
+/* Blazor global rules */
 /*
 a, .btn-link {
     color: #0071c1;
@@ -100,7 +153,3 @@ a, .btn-link {
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
-
-/*code {
-    color: #c02d76;
-}*/
