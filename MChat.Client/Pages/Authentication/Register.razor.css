@@ -1,0 +1,45 @@
+﻿.container {
+    height: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.register-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 5rem;
+    max-width: 680px;
+    border-radius: 1rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+    .register-form ::deep button[type="submit"] {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: var(--bs-gray-800);
+        width: 100%;
+        transition: background-color ease-in 200ms;
+    }
+    .register-form ::deep button[type="submit"]:hover {
+        background-color: var(--primary-hover);
+    }
+
+    .register-form ::deep .link-actions {
+        text-align: center;
+    }
+
+.link-actions ::deep a {
+    color: var(--tertiary);
+}
+    .link-actions ::deep a:hover {
+        text-decoration: underline;
+    }

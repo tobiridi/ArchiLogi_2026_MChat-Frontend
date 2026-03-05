@@ -1,0 +1,52 @@
+﻿@page "/register"
+
+<PageTitle>MChat - inscription</PageTitle>
+
+@if(NotifPopup is not null)
+{
+    <NotificationPopup 
+        Message="@NotifPopup.Message"
+        NotifType="@NotifPopup.NotifType" />
+}
+
+<div class="container">
+    <div class="register-form">
+        <h1>Inscrivez-vous Gratuitement</h1>
+
+        <EditForm method="POST" FormName="UserRegisterForm" Model="Model" OnValidSubmit="ValidateForm" >
+            <DataAnnotationsValidator />
+            <AntiforgeryToken />
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText class="form-control" id="email" @bind-Value="Model.Email"/>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <InputText type="password" class="form-control" id="password" @bind-Value="Model.Password" />
+            </div>
+
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirmer mot de passe</label>
+                <InputText type="password" class="form-control" id="confirm_password" @bind-Value="Model.ConfirmPassword" />
+            </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <InputText class="form-control" id="username" @bind-Value="Model.Username" />
+            </div>
+
+            <button type="submit" class="btn">S'inscrire</button>
+            <ValidationSummary />
+
+            <hr />
+
+            <div class="link-actions">
+                <NavLink href="login" class="login-link">
+                    Déjà un compte ?
+                </NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
