@@ -4,7 +4,6 @@ using MChat.Client.Models;
 using MChat.Client.Models.Authentication;
 using MChat.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using System.ComponentModel.DataAnnotations;
 
 namespace MChat.Client.Pages.Authentication
 {

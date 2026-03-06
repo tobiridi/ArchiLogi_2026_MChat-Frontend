@@ -37,9 +37,9 @@ h1 {
         text-align: center;
     }
 
-.link-actions ::deep a {
-    color: var(--tertiary);
-}
-    .link-actions ::deep a:hover {
-        text-decoration: underline;
+    .register-form ::deep a {
+        color: var(--tertiary);
     }
+        .register-form ::deep a:hover {
+            text-decoration: underline;
+        }
