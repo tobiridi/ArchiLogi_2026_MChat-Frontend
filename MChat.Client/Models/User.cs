@@ -13,5 +13,16 @@
         public DateOnly CreateAt { get; set; }
 
         public DateTime LastUpdate { get; set; }
+
+        public override string ToString()
+        {
+            return "User {" +
+                "Id = " + Id + "\n" +
+                "Email = " + Email + "\n" +
+                "Username = " + Username + "\n" +
+                "CreateAt = " + CreateAt + "\n" +
+                "LastUpdate = " + LastUpdate +
+                "}";
+        }
     }
 }
