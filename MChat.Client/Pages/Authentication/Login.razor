@@ -1,0 +1,54 @@
+﻿@page "/login"
+
+<PageTitle>MChat - connexion</PageTitle>
+
+@if (NotifPopup is not null)
+{
+    <NotificationPopup 
+        Message="@NotifPopup.Message"
+        NotifType="@NotifPopup.NotifType" />
+}
+
+<div class="container">
+    <div class="login-form">
+        <h1>Bon Retour</h1>
+        <h3>Connectez-vous pour continuer</h3>
+
+        <EditForm method="POST" FormName="UserLoginForm" Model="Model" OnValidSubmit="ValidateForm">
+            <DataAnnotationsValidator />
+            <AntiforgeryToken />
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText class="form-control" id="email" @bind-Value="Model.Email" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <InputText type="password" class="form-control" id="password" @bind-Value="Model.Password" />
+            </div>
+
+            <div class="mb-3 d-flex justify-content-between">
+                <div class="form-check">
+                    <InputCheckbox class="form-check-input" type="checkbox" id="rememberMe" @bind-Value="Model.RememberMe" />
+                    <label for="rememberMe" class="form-check-label user-select-none">Se souvenir de moi</label>
+                </div>
+                @* TODO: add link to forget password page *@
+                <NavLink href="/login/#">
+                    Mot de passe oublié ?
+                </NavLink>
+            </div>
+
+            <button type="submit" class="btn">Se connecter</button>
+            <ValidationSummary class="text-danger" />
+
+            <hr />
+
+            <div class="link-actions">
+                <NavLink href="register">
+                    Pas encore de compte ? Inscrivez-vous
+                </NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
