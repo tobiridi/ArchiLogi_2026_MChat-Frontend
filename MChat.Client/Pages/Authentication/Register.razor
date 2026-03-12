@@ -37,7 +37,7 @@
                 <InputText class="form-control" id="username" @bind-Value="Model.Username" />
             </div>
 
-            <button type="submit" class="btn">S'inscrire</button>
+            <button type="submit" class="btn" disabled="@IsLoading">S'inscrire</button>
             <ValidationSummary class="text-danger" />
 
             <hr />

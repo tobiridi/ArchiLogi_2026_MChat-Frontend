@@ -1,5 +1,4 @@
 ﻿using MChat.Client.Components;
-using MChat.Client.Models;
 using MChat.Client.Models.Authentication;
 using MChat.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
@@ -13,18 +12,28 @@ namespace MChat.Client.Pages.Authentication
 
         private NotificationPopup? NotifPopup { get; set; } = null;
 
+        private bool IsLoading { get; set; } = false;
+
         [Inject]
         private NavigationManager NavManager { get; set; }
 
         [Inject]
         private IAuthService authService { get; set; }
 
+        protected override void OnAfterRender(bool firstRender)
+        {
+            this.IsLoading = false;
+        }
+
         private async Task ValidateForm()
         {
-            User? logUser = null;
+            bool isLogSuccess = false;
+            this.IsLoading = true;
+            StateHasChanged();
+
             try
             {
-                logUser = await authService.LoginAsync(Model);
+                isLogSuccess = await authService.LoginAsync(Model);
             }
             catch (Exception ex)
             {
@@ -33,13 +42,13 @@ namespace MChat.Client.Pages.Authentication
                 return;
             }
 
-            if (logUser is not null)
+            if (isLogSuccess)
             {
                 if(Model.RememberMe)
                 {
-                    //TODO: add JWT token
+                    //TODO: implement other management of jwt token when RememberMe is activate
                 }
-                NavManager.NavigateTo("/");
+                NavManager.NavigateTo("/", true);
             }
             else
             {

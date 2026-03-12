@@ -1,0 +1,14 @@
+﻿@inject NavigationManager NavManager
+
+@code {
+    [Parameter]
+    public string Page { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool ForceReload { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        NavManager.NavigateTo(Page, ForceReload);
+    }
+}
