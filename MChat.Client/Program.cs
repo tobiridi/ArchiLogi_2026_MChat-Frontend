@@ -1,6 +1,9 @@
 using MChat.Client.HttpClients;
+using MChat.Client.MessageHandlers;
+using MChat.Client.Providers;
 using MChat.Client.Services.Implementations;
 using MChat.Client.Services.Interfaces;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -14,28 +17,34 @@ namespace MChat.Client
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            // 1. On ajoute le LocalStorage en premier
-            //builder.Services.AddBlazoredLocalStorage();
+            #region Application services
 
-            // 2. On enregistre le JwtHandler
-            //builder.Services.AddScoped<JwtHandler>();
+            // inject a specific HttpClient for custom services
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MChat-API"));
 
-            // 3. On remplace ta configuration HttpClient par celle-ci :
-            // Elle fait exactement la même chose mais AJOUTE le Handler
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddLocalStorageServices();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddCascadingAuthenticationState();
+            builder.Services.AddSingleton<AuthenticationStateProvider,JwtAuthenticationStateProvider>();
+
+            #endregion
+
+            #region HttpMessageHandlers services
+
+            builder.Services.AddScoped<JwtMessageHandler>();
+            #endregion
+
+            #region HttpClient configuration
+
+            // configure the HttpClient with JWT handler
             builder.Services.AddHttpClient<MChatHttpClient>("MChat-API", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7042/api/v1/");
                 client.Timeout = TimeSpan.FromSeconds(5);
-            });
-            //.AddHttpMessageHandler<JwtHandler>();
-
-            // Cette ligne permet à tes services d'injecter 'HttpClient' normalement
-            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MChat-API"));
-
-            // 4. Tes services (ils recevront le HttpClient configuré juste au-dessus)
-            builder.Services.AddScoped<IAuthService, AuthService>();
-            //builder.Services.AddScoped<PostService>();
-            //builder.Services.AddScoped<UserService>();
+            })
+            .AddHttpMessageHandler<JwtMessageHandler>();
+            #endregion
 
             await builder.Build().RunAsync();
         }

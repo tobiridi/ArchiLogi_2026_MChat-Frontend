@@ -62,7 +62,10 @@ input, select, textarea {
 }
 
 /* CSS global rules */
-
+form button[type="submit"]:disabled {
+    opacity: 0.4;
+    cursor: wait;
+}
 
 /* Blazor global rules */
 /*

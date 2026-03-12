@@ -5,7 +5,11 @@ namespace MChat.Client.Services.Interfaces
 {
     public interface IAuthService
     {
+        public const string ACCESS_TOKEN_KEY = "access_token";
+        public const string REFRESH_TOKEN_KEY = "refresh_token";
+
         Task<bool> RegisterAsync(RegisterForm form);
-        Task<User?> LoginAsync(LoginForm form);
+        Task<bool> LoginAsync(LoginForm form);
+        void Logout();
     }
 }
