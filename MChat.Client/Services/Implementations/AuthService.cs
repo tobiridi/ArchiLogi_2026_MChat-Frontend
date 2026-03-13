@@ -37,13 +37,13 @@ namespace MChat.Client.Services.Implementations
 
         public async Task Logout()
         {
-            string? accessToken = _localStorage.GetItem<string>(IAuthService.ACCESS_TOKEN_KEY);
-            string? refreshToken = _localStorage.GetItem<string>(IAuthService.REFRESH_TOKEN_KEY);
+            var request = await _mchatClient._client.DeleteAsync("Authentication/logout");
 
-            //TODO : add call API for remove refresh token from database
-            //var request = await _mchatClient._client.DeleteFromJsonAsync<string>("Authentication/logout");
-            _localStorage.RemoveItem(IAuthService.ACCESS_TOKEN_KEY);
-            _localStorage.RemoveItem(IAuthService.REFRESH_TOKEN_KEY);
+            if(request.IsSuccessStatusCode)
+            {
+                _localStorage.RemoveItem(IAuthService.ACCESS_TOKEN_KEY);
+                _localStorage.RemoveItem(IAuthService.REFRESH_TOKEN_KEY);
+            }
         }
 
         public async Task<bool> RegisterAsync(RegisterForm form)
