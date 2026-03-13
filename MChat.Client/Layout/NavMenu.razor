@@ -1,4 +1,11 @@
-﻿<nav class="navbar navbar-expand-md">
+﻿@if(NotifPopup is not null)
+{
+    <NotificationPopup
+        Message="@NotifPopup.Message"
+        NotifType="@NotifPopup.NotifType" />
+}
+
+<nav class="navbar navbar-expand-md">
     <div class="container-fluid">
         <NavLink class="navbar-brand" href="/" Match="NavLinkMatch.All">
             <img id="app-logo" src="favicon.png" alt="Icône du site" />
