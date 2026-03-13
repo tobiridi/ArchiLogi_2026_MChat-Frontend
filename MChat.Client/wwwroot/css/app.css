@@ -67,6 +67,10 @@ form button[type="submit"]:disabled {
     cursor: wait;
 }
 
+nav .nav-link {
+    color: var(--bs-gray-800);
+}
+
 /* Blazor global rules */
 /*
 a, .btn-link {

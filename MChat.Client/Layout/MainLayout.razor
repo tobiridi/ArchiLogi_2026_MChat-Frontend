@@ -1,8 +1,9 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    @* TODO: display navMenu when the user is authenticate *@
-    @* <NavMenu /> *@
+    <AuthorizeView>
+        <NavMenu />
+    </AuthorizeView>
 
     <main>
         @Body
