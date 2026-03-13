@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Json;
-
-namespace MChat.Client.HttpClients
+﻿namespace MChat.Client.HttpClients
 {
     public class MChatHttpClient
     {
