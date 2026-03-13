@@ -1,34 +1,24 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<nav class="navbar navbar-expand-md">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">MChat.Client</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <NavLink class="navbar-brand" href="/" Match="NavLinkMatch.All">
+            <img id="app-logo" src="favicon.png" alt="Icône du site" />
+        </NavLink>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <NavLink class="nav-link fs-5" href="/teams" Match="NavLinkMatch.All">
+                        <i class="fa-solid fa-users"></i> Équipes
+                    </NavLink>
+                </li>
+            </ul>
+            <button id="nav-btn-logout" class="btn" type="button" @onclick="Logout">
+                Déconnexion
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
     </div>
-</div>
-
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+</nav>

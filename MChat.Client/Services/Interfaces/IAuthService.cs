@@ -1,5 +1,4 @@
-﻿using MChat.Client.Models;
-using MChat.Client.Models.Authentication;
+﻿using MChat.Client.Models.Authentication;
 
 namespace MChat.Client.Services.Interfaces
 {
@@ -10,6 +9,6 @@ namespace MChat.Client.Services.Interfaces
 
         Task<bool> RegisterAsync(RegisterForm form);
         Task<bool> LoginAsync(LoginForm form);
-        void Logout();
+        Task Logout();
     }
 }
