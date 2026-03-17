@@ -3,10 +3,17 @@
 
 <PageTitle>MChat - équipes</PageTitle>
 
-@if (DisplayOverlayModal)
+@if (NotifPopup is not null)
 {
-    <OverlayModal ChildContent="null" OnClose="() => {}" />
+    <NotificationPopup
+        Message="@NotifPopup.Message"
+        NotifType="@NotifPopup.NotifType" />
 }
+
+<OverlayModal 
+    IsVisible=@DisplayOverlayModal 
+    ChildContent="null" 
+    OnClose="() => { }" />
 
 <section id="teams-header" class="d-flex flex-row justify-content-between align-items-center mb-4">
     <div class="d-flex flex-row align-items-center">
@@ -68,13 +75,13 @@
 
                             <ul class="dropdown-menu @(team.Equals(TeamChatDropDownMenu) ? "show" : null)">
                                 <li>
-                                    <button class="dropdown-item" @onclick="() => EditTeam(team)">
+                                    <button class="dropdown-item" @onclick="() => EditTeamOpenModal(team)">
                                         Modifier
                                     </button>
                                 </li>
 
                                 <li>
-                                    <button class="dropdown-item" @onclick="() => DeleteTeam(team)">
+                                    <button class="dropdown-item" @onclick="() => DeleteTeamOpenModal(team)">
                                         Supprimer
                                     </button>
                                 </li>

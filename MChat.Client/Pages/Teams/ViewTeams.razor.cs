@@ -1,16 +1,14 @@
-﻿using MChat.Client.Models;
-using MChat.Client.Models.Authentication;
+﻿using MChat.Client.Components;
+using MChat.Client.Models;
 using MChat.Client.Models.TeamChatting;
+using MChat.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using System.Net;
 
 namespace MChat.Client.Pages.Teams
 {
     public partial class ViewTeams
     {
-        [Inject]
-        private NavigationManager NavManager { get; set; }
-
         private bool DisplayOverlayModal = false;
 
         private int GroupTeamSelected = 1;
@@ -19,16 +17,34 @@ namespace MChat.Client.Pages.Teams
 
         private TeamChatListingViewModel Model { get; set; } = new TeamChatListingViewModel();
 
+        private NotificationPopup? NotifPopup { get; set; } = null;
+
+        [Inject]
+        private NavigationManager NavManager { get; set; }
+
+        [Inject]
+        private ITeamChatService _TeamChatService { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
-            //TODO : get from api
-            Model.MyTeams = [
-                new TeamChat(Guid.NewGuid(), null, "développement", null),
-                new TeamChat(Guid.NewGuid(), null, "study", null),
-                new TeamChat(Guid.NewGuid(), null, "amis", null),
-            ];
+            try
+            {
+                Model.MyTeams = await _TeamChatService.GetOwnerTeamChatsAsync();
+                Model.JoinedTeams = await _TeamChatService.GetJoinedTeamChatsAsync();
+            }
+            catch (HttpRequestException httpEx)
+            {
+                string errorMsg = "";
+                switch(httpEx.StatusCode)
+                {
+                    case HttpStatusCode.InternalServerError: errorMsg = "Une erreur est survenue lors de la récupèration des équipes de discussions.";
+                        break;
+                }
 
-            Model.JoinedTeams = [];
+                NotifPopup = new NotificationPopup(errorMsg, NotificationPopup.NotificationPopupType.Danger);
+                StateHasChanged();
+                return;
+            }
         }
 
         private void UpdateGroupTeam(int group)
@@ -55,21 +71,20 @@ namespace MChat.Client.Pages.Teams
             StateHasChanged();
         }
 
-
         //TODO : implement openTeam, editTeam, deleteTeam
         private void OpenTeam(Guid teamId)
         {
             NavManager.NavigateTo($"/team?id={teamId}");
         }
 
-        private void EditTeam(TeamChat team)
+        private void EditTeamOpenModal(TeamChat team)
         {
             DisplayOverlayModal = true;
             StateHasChanged();
             //NavManager.NavigateTo($"/teams/edit/{teamId}");
         }
 
-        private void DeleteTeam(TeamChat team)
+        private void DeleteTeamOpenModal(TeamChat team)
         {
             DisplayOverlayModal = true;
             StateHasChanged();
