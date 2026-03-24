@@ -1,0 +1,12 @@
+﻿@if (IsVisible)
+{
+    <div class="overlay-backdrop" @onclick="CloseOverlay">
+        <button type="button" id="btn-close" aria-label="Close" @onclick=CloseOverlay>
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="container-fluid overlay-container" @onclick:stopPropagation="true">
+            @ChildContent
+        </div>
+    </div>
+}

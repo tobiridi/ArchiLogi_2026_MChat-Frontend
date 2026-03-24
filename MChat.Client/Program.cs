@@ -23,11 +23,12 @@ namespace MChat.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("MChat-API"));
 
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITeamChatService, TeamChatService>();
+
             builder.Services.AddLocalStorageServices();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddSingleton<AuthenticationStateProvider,JwtAuthenticationStateProvider>();
-
             #endregion
 
             #region HttpMessageHandlers services
