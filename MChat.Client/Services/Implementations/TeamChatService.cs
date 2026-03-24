@@ -1,6 +1,7 @@
 ﻿using MChat.Client.HttpClients;
 using MChat.Client.Models;
 using MChat.Client.Services.Interfaces;
+using MChat.Client.Services.Responses;
 using System.Net.Http.Json;
 
 namespace MChat.Client.Services.Implementations
@@ -16,14 +17,22 @@ namespace MChat.Client.Services.Implementations
 
         public async Task<List<TeamChat>> GetJoinedTeamChatsAsync()
         {
-            List<TeamChat>? data = await _mchatClient._client.GetFromJsonAsync<List<TeamChat>>($"TeamChat/user/joined");
-            return data ?? [];
+            GetJoinedTeamChatResponse? response = await _mchatClient._client.GetFromJsonAsync<GetJoinedTeamChatResponse>("TeamChat/user/joined");
+            if (response is null)
+                return [];
+
+            List<TeamChat> data = response.Teams;
+            return data;
         }
 
         public async Task<List<TeamChat>> GetOwnerTeamChatsAsync()
         {
-            List<TeamChat>? data = await _mchatClient._client.GetFromJsonAsync<List<TeamChat>>($"TeamChat/user");
-            return data ?? [];
+            GetOwnerTeamChatResponse? response = await _mchatClient._client.GetFromJsonAsync<GetOwnerTeamChatResponse>("TeamChat/user");
+            if (response is null)
+                return [];
+
+            List<TeamChat> data = response.Teams;
+            return data;
         }
     }
 }
